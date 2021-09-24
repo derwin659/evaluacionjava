@@ -13,7 +13,8 @@ public class CreateUser {
         this.userService=userService;
     }
 
-    public User save(User newUser) {
+    public User save(User newUser){
         return userService.save(newUser);
     }
+
 }

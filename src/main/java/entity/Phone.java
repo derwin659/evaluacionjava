@@ -1,26 +1,83 @@
+
 package entity;
 
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="phone")
+@Table(
+        name = "phone"
+)
 public class Phone {
     @Id
-    @GeneratedValue
-    private Long id;
-
-    @Column(nullable=false,length = 50)
+    @GeneratedValue(
+            strategy = GenerationType.AUTO
+    )
+    @Column(
+            name = "id_phone",
+            nullable = false,
+            unique = true
+    )
+    private int id;
+    @Column(
+            length = 50
+    )
     private String number;
-
-    @Column(nullable=false,length = 50)
+    @Column(
+            length = 50
+    )
     private String cityCode;
-
-    @Column(nullable=false,length = 50)
+    @Column(
+            length = 50
+    )
     private String countryCode;
-    @OneToMany(mappedBy = "user",cascade =CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Phone> user =new ArrayList<>();
+    @ManyToOne
+    private User user;
+
+    public Phone() {
+    }
+
+    public Phone(int id, String number, String cityCode, String countryCode) {
+        this.id = id;
+        this.number = number;
+        this.cityCode = cityCode;
+        this.countryCode = countryCode;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNumber() {
+        return this.number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getCityCode() {
+        return this.cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    public String getCountryCode() {
+        return this.countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
 }
